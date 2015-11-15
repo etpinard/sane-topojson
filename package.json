@@ -7,9 +7,7 @@
     "wget": "node ./bin/wget.js",
     "shp2geo": "node ./bin/shp2geo.js",
     "geo2topo": "node ./bin/geo2topo.js",
-    "convert": "npm run shp2geo && npm run shp2geo && npm run geo2topo",
-    "bundle": "browserify index.js > ./dist/bundle.js",
-    "all": "npm run wget && sleep 5 && npm run convert && sleep 5 && npm run bundle"
+    "all": "npm run shp2geo && npm run shp2geo && npm run geo2topo",
   },
   "repository": {
     "type": "git",
@@ -27,8 +25,7 @@
     "url": "https://github.com/etpinard/sane-topojson/issues"
   },
   "homepage": "https://github.com/etpinard/sane-topojson#readme",
-  "dependencies": {
-    "browserify": "^12.0.1",
+  "devDependencies": {
     "geojson-utils": "^1.1.0",
     "mapshaper": "^0.3.11",
     "progress": "^1.1.8",
