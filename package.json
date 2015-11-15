@@ -7,7 +7,7 @@
     "wget": "node ./bin/wget.js",
     "shp2geo": "node ./bin/shp2geo.js",
     "geo2topo": "node ./bin/geo2topo.js",
-    "all": "npm run shp2geo && npm run shp2geo && npm run geo2topo",
+    "all": "npm run shp2geo && npm run shp2geo && npm run geo2topo"
   },
   "repository": {
     "type": "git",
