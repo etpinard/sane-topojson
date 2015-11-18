@@ -2,13 +2,13 @@
 
 Ready-to-use multi-layer topojson files.
 
-This repo encompasses the three step require to turn
+This project encompasses the three step required to turn
 [Natural Earth Data](http://www.naturalearthdata.com/) into topojson files.
 
 These are:
 
 - `npm run wget`: download to Natural Earth shapefiles and unzips them
-- `npm run shp2geo`: clips and convert shapefiles into geojson files
+- `npm run shp2geo`: clip and convert shapefiles into geojson files
 - `npm run geo2topo` add properties and convert the geojson files into topojson
   files
 
@@ -66,6 +66,11 @@ A topojson with the `objects` field:
     }
 }
 ```
+
+where `id` is the ISO-3 code for the `countries` layer and two-letter postal
+code for the `subunits` layer. In `properties`, `ct` is the longitude and
+latitude coordinates (in degrees East and degrees North respectively) of the
+centroid of the geometry's largest polygon in area.
 
 ### Install
 
