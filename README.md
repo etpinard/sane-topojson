@@ -88,4 +88,4 @@ npm install sane-topojson
 [badge-deps]: https://david-dm.org/etpinard/sane-topojson.svg?style=flat-square
 [deps]: https://david-dm.org/etpinard/sane-topojson
 [badge-dev-deps]: https://david-dm.org/etpinard/sane-topojson/dev-status.svg?style=flat-square
-[dev-deps]: https://david-dm.org/etpinard/sane-topojsonx#info=devDependencies
+[dev-deps]: https://david-dm.org/etpinard/sane-topojson#info=devDependencies
