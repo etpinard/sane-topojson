@@ -1,5 +1,10 @@
 # sane-topojson
 
+[![npm version][badge-version]][npm]
+
+[![Dependency Status][badge-deps]][deps]
+[![devDependency Status][badge-dev-deps]][dev-deps]
+
 Ready-to-use multi-layer topojson files.
 
 This project encompasses the three step required to turn
@@ -77,3 +82,10 @@ centroid of the geometry's largest polygon in area.
 ```
 npm install sane-topojson
 ```
+
+[npm]: https://www.npmjs.com/package/sane-topojson
+[badge-version]: https://badge.fury.io/js/sane-topojson.svg
+[badge-deps]: https://david-dm.org/etpinard/sane-topojson.svg?style=flat-square
+[deps]: https://david-dm.org/etpinard/sane-topojson
+[badge-dev-deps]: https://david-dm.org/etpinard/sane-topojson/dev-status.svg?style=flat-square
+[dev-deps]: https://david-dm.org/etpinard/sane-topojsonx#info=devDependencies
