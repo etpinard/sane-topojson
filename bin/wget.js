@@ -19,7 +19,7 @@ function main(err, configFile) {
 
     function unzip(r, v) {
         return [
-            'unzip',
+            'unzip -o',
             common.wgetDir + common.srcPrefix + common.bn(r, v.src, 'zip'),
             '-d', common.wgetDir
         ].join(' ');
@@ -42,15 +42,16 @@ function main(err, configFile) {
 
             var download = wget.download(url, out, {});
 
-            download.on('error', function(error) {
-                console.log(error);
+            download.on('error', function(err) {
+                console.log(err);
             });
 
-            download.on('end', function(output) {
-                bar.tick();
-                exec(unzip(r, v));
+            download.on('end', function() {
+                exec(unzip(r, v), function() {
+                    bar.tick();
+                    if(bar.complete) process.exit();
+                });
             });
-
         });
     });
 }
