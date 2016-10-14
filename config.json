@@ -108,7 +108,7 @@
         },
         {
             "type": "cultural",
-            "src": "admin_1_states_provinces",
+            "src": "admin_1_states_provinces_lakes",
             "name": "subunits",
             "ids": "postal",
             "scopeWith": "src"
