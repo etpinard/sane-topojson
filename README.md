@@ -37,7 +37,7 @@ A topojson with the `objects` field:
 {
     coastlines: {
         type: '',
-        geometries: []    
+        geometries: []
     },
     countries: {
         type: '',
@@ -48,19 +48,19 @@ A topojson with the `objects` field:
     },
     lakes: {
         type: '',
-        geometries: []    
+        geometries: []
     },
     land: {
         type: '',
-        geometries: []    
+        geometries: []
     },
     ocean: {
         type: '',
-        geometries: []    
+        geometries: []
     }
     rivers: {
         type: '',
-        geometries: []    
+        geometries: []
     }
     subunits: {
         type: '',
@@ -78,6 +78,12 @@ latitude coordinates (in degrees East and degrees North respectively) of the
 centroid of the geometry's largest polygon in area.
 
 ### Install
+
+- Install gdal (info:
+  [ubuntu](http://www.sarasafavi.com/installing-gdalogr-on-ubuntu.html) |
+  [mac](https://trac.osgeo.org/gdal/wiki/BuildingOnMac))
+
+- Install node.js dependencies
 
 ```
 npm install sane-topojson

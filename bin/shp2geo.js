@@ -4,7 +4,8 @@ var exec = require('child_process').exec;
 var common = require('./common');
 var mapshaper = './node_modules/mapshaper/bin/mapshaper';
 
-var DEBUG = false;  // logs commands if true
+// logs commands if true
+var DEBUG = process.env.SANE_TOPOJSON_DEBUG;
 
 fs.readFile(common.pathToConfig, 'utf8', main);
 
