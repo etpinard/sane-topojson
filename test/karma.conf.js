@@ -19,6 +19,8 @@ module.exports = function(config) {
 
         singleRun: isCI,
 
+        browserNoActivityTimeout: 100000,
+
         browserify: {
             watch: true,
             debug: true
