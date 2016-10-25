@@ -2,6 +2,7 @@
 
 [![npm version][badge-version]][npm]
 
+[![Build Status][badge-travis]][travis]
 [![Dependency Status][badge-deps]][deps]
 [![devDependency Status][badge-dev-deps]][dev-deps]
 
@@ -90,6 +91,8 @@ npm install sane-topojson
 ```
 
 [npm]: https://www.npmjs.com/package/sane-topojson
+[travis]: https://travis-ci.org/etpinard/sane-topojson
+[badge-travis]: https://travis-ci.org/etpinard/sane-topojson.svg?branch=master
 [badge-version]: https://badge.fury.io/js/sane-topojson.svg
 [badge-deps]: https://david-dm.org/etpinard/sane-topojson.svg?style=flat-square
 [deps]: https://david-dm.org/etpinard/sane-topojson
