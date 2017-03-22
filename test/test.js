@@ -17,24 +17,31 @@ describe('sane topojson general', () => {
         expect(Object.keys(saneTopojson)).toEqual([
             'world_110m',
             'world_50m',
+            'world_10m',
 
             'africa_110m',
             'africa_50m',
+            'africa_10m',
 
             'asia_110m',
             'asia_50m',
+            'asia_10m',
 
             'europe_110m',
             'europe_50m',
+            'europe_10m',
 
             'north-america_110m',
             'north-america_50m',
+            'north-america_10m',
 
             'south-america_110m',
             'south-america_50m',
+            'south-america_10m',
 
             'usa_110m',
-            'usa_50m'
+            'usa_50m',
+            'usa_10m'
         ]);
     });
 
