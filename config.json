@@ -68,7 +68,7 @@
                 "src": "admin_0_countries",
                 "key": "continent",
                 "val": "Oceania",
-                "bounds": [-10, -50, -180, 100]
+                "bounds": [-10, -50, -180, 110]
             }
         }
     ],
