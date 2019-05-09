@@ -4,11 +4,11 @@
   "description": "Ready-to-use multi-layer topojson files",
   "main": "index.js",
   "scripts": {
-    "clean": "cd build && ls | grep -v README.md | xargs rm",
+    "clean": "cd build && ls | grep -v README.md | xargs rm || true",
     "wget": "node ./bin/wget.js",
     "shp2geo": "node ./bin/shp2geo.js",
     "geo2topo": "node ./bin/geo2topo.js",
-    "start": "npm clean && npm run wget && npm run shp2geo && npm run geo2topo",
+    "start": "npm run clean && npm run wget && npm run shp2geo && npm run geo2topo",
     "test": "karma start test/karma.conf.js"
   },
   "repository": {
