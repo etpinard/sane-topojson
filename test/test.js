@@ -1,41 +1,19 @@
 /* global d3:false */
 
+/*
+ * N.B. these test assert ./index.js which itself requires dist/*,
+ * so make sure to run `npm start` before `npm test` to test new topojson files
+ *
+ */
+
 var saneTopojson = require('../');
+var assets = require('./assets');
 var topojson = require('topojson');
 
-var ITEM_WITH_NO_SUBUNITS = [
-    'africa_110m', 'africa_50m',
-    'asia_110m', 'asia_50m',
-    'europe_110m', 'europe_50m',
-    'south-america_110m'
-];
-
 describe('sane topojson general', () => {
-
     it('should have correct test environments', () => {
         expect(d3.version).toEqual('3.5.17');
-        expect(Object.keys(saneTopojson)).toEqual([
-            'world_110m',
-            'world_50m',
-
-            'africa_110m',
-            'africa_50m',
-
-            'asia_110m',
-            'asia_50m',
-
-            'europe_110m',
-            'europe_50m',
-
-            'north-america_110m',
-            'north-america_50m',
-
-            'south-america_110m',
-            'south-america_50m',
-
-            'usa_110m',
-            'usa_50m'
-        ]);
+        expect(Object.keys(saneTopojson)).toEqual(Object.keys(assets.GEOMETRY_COUNT));
     });
 
     it('should have all the correct layers', () => {
@@ -50,13 +28,84 @@ describe('sane topojson general', () => {
                 'coastlines', 'land', 'ocean', 'lakes',
                 'rivers', 'countries', 'subunits'
             ]);
+
+            var objs = saneTopojsonItem.objects;
+            Object.keys(objs).forEach((l) => {
+                expect(Object.keys(objs[l])).toEqual(['type', 'geometries']);
+            });
         });
     });
 
+    it('should have correct number of geometries per layer', () => {
+        Object.keys(saneTopojson).forEach((k) => {
+            var objs = saneTopojson[k].objects;
+
+            Object.keys(objs).forEach((l) => {
+                expect(objs[l].geometries.length).toBe(assets.GEOMETRY_COUNT[k][l], [k, l]);
+            });
+        });
+    });
+
+    it('should have a minimal set of *properties*', () => {
+        Object.keys(saneTopojson).forEach((k) => {
+            var objs = saneTopojson[k].objects;
+
+            Object.keys(objs).forEach((l) => {
+                var o = objs[l];
+                var list = [];
+
+                switch(l) {
+                    case 'coastlines':
+                    case 'land':
+                    case 'ocean':
+                    case 'lakes':
+                    case 'rivers':
+                        o.geometries.forEach(function(g, i) {
+                            var msg = [k, l, i];
+                            expect(Object.keys(g).length).toBe(2, 'just two fields| ' + msg);
+                            expect(Array.isArray(g.arcs)).toBe(true, '*arcs* is an array| ' + msg);
+                            expect(typeof g.type === 'string').toBe(true, '*type* is a string |' + msg);
+                        });
+                        break;
+                    case 'countries':
+                    case 'subunits':
+                        o.geometries.forEach(function(g, i) {
+                            var msg = [k, l, i];
+                            var p = g.properties;
+
+                            if(p) {
+                                expect(Object.keys(g).length).toBe(4, 'four fields| ' + msg);
+                                expect(typeof g.id === 'string').toBe(true, '*id* is a string| ' + msg);
+                                expect(Object.keys(p).length).toBe(1, '1 properties field| ' + msg);
+                                expect(Array.isArray(p.ct)).toBe(true, '*properties.ct* is an array| '+ msg);
+                                list.push(g.id);
+                            } else {
+                                expect(Object.keys(g).length).toBe(2, 'just two fields| ' + msg);
+                            }
+
+                            expect(Array.isArray(g.arcs)).toBe(true, '*arcs* is an array| ' + msg);
+                            expect(typeof g.type === 'string').toBe(true, '*type* is a string| ' + msg);
+                        });
+                        break;
+                    default:
+                        fail('Unknown layer ' + l + ' in topojson ' + k);
+                        break;
+                }
+
+                switch(l) {
+                    case 'countries':
+                        expect(list.length).toBe(assets.COUNTRIES_CNT[k], '# of countries| ' + [k, l]);
+                        break;
+                    case 'subunits':
+                        expect(list.length).toBe(assets.SUBUNITS_CNT[k], '# of subunits| ' + [k, l]);
+                        break;
+                }
+            });
+        });
+    });
 });
 
 describe('sane topojson with d3-geo & topojson', () => {
-
     beforeEach(() => {
         this.svg = d3.select('body').append('svg')
             .attr('width', 960)
@@ -93,7 +142,7 @@ describe('sane topojson with d3-geo & topojson', () => {
 
                         if(
                             l === 'subunits' &&
-                            ITEM_WITH_NO_SUBUNITS.indexOf(k) !== -1
+                            assets.ITEM_WITH_NO_SUBUNITS.indexOf(k) !== -1
                         ) {
                             expect(path.attr('d')).toBe(null);
                         }
