@@ -1,6 +1,5 @@
 var fs = require('fs');
 var exec = require('child_process').exec;
-
 var common = require('./common');
 var mapshaper = './node_modules/mapshaper/bin/mapshaper';
 
@@ -137,7 +136,8 @@ function main(err, configFile) {
 
     function vectorLoop(r, s, clip) {
         config.vectors.forEach(function(v) {
-            exec(convertToGeoJSON(r, s, v, clip), function() {
+            exec(convertToGeoJSON(r, s, v, clip), function(err) {
+                if(err) throw err;
                 bar.tick();
             });
         });
@@ -149,11 +149,12 @@ function main(err, configFile) {
 
         if(s.specs===false) vectorLoop(r, s, false);
         else {
-            exec(scopeBaseShapefile(r, s), function() {
-                vectorLoop(r, s, true);
+            exec(scopeBaseShapefile(r, s), function(err) {
+                if(err) throw err;
+                setTimeout(function() {
+                    vectorLoop(r, s, true);
+                }, 1000)
             });
         }
-
     });
-
 }

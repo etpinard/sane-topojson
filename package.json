@@ -35,9 +35,8 @@
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.0.2",
     "mapshaper": "^0.3.11",
+    "node-wget": "^0.4.3",
     "progress": "^1.1.8",
     "topojson": "^1.6.19",
-    "watchify": "^3.7.0",
-    "wget": "0.0.1"
-  }
+    "watchify": "^3.7.0"
 }

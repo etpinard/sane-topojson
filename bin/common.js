@@ -9,7 +9,7 @@ common.pathToConfig = path.join(__dirname, '../config.json');
 common.wgetDir = path.join(__dirname, '../build/');
 common.geojsonDir = path.join(__dirname, '../build/');
 common.topojsonDir = path.join(__dirname, '../dist/');
-common.urlBase = 'http://naciscdn.org/naturalearth/';
+common.urlBase = 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/';
 common.srcPrefix = 'ne_';
 
 // base file name
