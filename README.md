@@ -11,6 +11,8 @@ Ready-to-use multi-layer topojson files.
 This project encompasses the three step required to turn
 [Natural Earth Data](http://www.naturalearthdata.com/) into topojson files.
 
+Go to [Natural Earth CHANGELOG](https://github.com/nvkelso/natural-earth-vector/blob/master/CHANGELOG)
+
 These are:
 
 - `npm run wget`: download to Natural Earth shapefiles and unzips them
