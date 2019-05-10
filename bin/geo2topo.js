@@ -116,7 +116,10 @@ function formatProperties(collection, v) {
 }
 
 function pruneProperties(topology) {
-    var propsToKeep = ['ct'];
+    // keep gu_a3 (aka governing unit A3 code, which necessary to identify
+    // some subunits ids (e.g. 'WA' which can be Washington state and Western
+    // Australia)
+    var propsToKeep = ['ct', 'gu_a3'];
 
     var objects = topology.objects;
 
