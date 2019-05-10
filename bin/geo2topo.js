@@ -110,8 +110,21 @@ function formatProperties(collection, v) {
             if(id !== '-99') {
                 feature.id = id;
                 feature.properties.ct = getCentroid(feature);
+                continue;
             }
          }
+
+        // Unfortunately, we need this to include Norway (IS0_A3=NOR)
+        // from Natural Earth v4.1.0
+        // - https://github.com/nvkelso/natural-earth-vector/issues/252
+        if(v.ids && v.ids.indexOf('ISO_A3') === 0) {
+            id = feature.properties['SOV_A3'];
+
+            if(id !== '-99') {
+                feature.id = id;
+                feature.properties.ct = getCentroid(feature);
+            }
+        }
 
         // France (IS0_A3=FRA) is also acting weird using IS0_A3,
         // but using ISO_A3_EH seems to work ok
