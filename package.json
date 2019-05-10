@@ -37,8 +37,8 @@
     "mapshaper": "^0.4.113",
     "node-wget": "^0.4.3",
     "progress": "^2.0.3",
-    "topojson": "^1.6.19",
-    "watchify": "^3.7.0"
+    "topojson": "^1.6.27",
+    "watchify": "^3.11.1"
   },
   "dependencies": {}
 }
