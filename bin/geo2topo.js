@@ -24,11 +24,6 @@ function main(err, configFile) {
 
         var collections = {};
 
-        var barRead = common.makeBar(
-            'Processing GeoJSON files : [:bar] :current/:total',
-            [config.vectors]
-        );
-
         config.vectors.forEach(function(v) {
             var path = common.geojsonDir + common.tn(r, s.name, v.name, 'geo.json'),
                 d = fs.readFileSync(path, 'utf8'),
@@ -36,13 +31,11 @@ function main(err, configFile) {
 
             if(collection.features) formatProperties(collection, v);
             collections[v.name] = collection;
-
-            barRead.tick();
         });
 
         // TODO experiment with simplification/quantization
         var topology = topojson.topology(collections, {
-            'verbose': true,
+            'verbose': common.DEBUG,
             'property-transform': propertyTransform
          });
 
@@ -51,7 +44,8 @@ function main(err, configFile) {
         var outPath = common.topojsonDir + common.out(r, s.name);
 
         fs.writeFile(outPath, JSON.stringify(topology), function(err) {
-            if(!err) barWrite.tick();
+            if(err) throw err;
+            barWrite.tick();
         });
     });
 }
