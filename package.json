@@ -8,7 +8,8 @@
     "wget": "node ./bin/wget.js",
     "shp2geo": "node ./bin/shp2geo.js",
     "geo2topo": "node ./bin/geo2topo.js",
-    "start": "npm run clean && npm run wget && npm run shp2geo && npm run geo2topo",
+    "stats": "node ./bin/stats.js",
+    "start": "npm run clean && npm run wget && npm run shp2geo && npm run geo2topo && npm run stats",
     "test": "karma start test/karma.conf.js"
   },
   "repository": {
@@ -29,6 +30,7 @@
   "homepage": "https://github.com/etpinard/sane-topojson#readme",
   "devDependencies": {
     "geojson-utils": "^1.1.0",
+    "gzip-size": "^5.1.0",
     "jasmine-core": "^3.4.0",
     "karma": "^4.1.0",
     "karma-browserify": "^6.0.0",
@@ -36,6 +38,7 @@
     "karma-jasmine": "^2.0.1",
     "mapshaper": "^0.4.113",
     "node-wget": "^0.4.3",
+    "prettysize": "^2.0.0",
     "progress": "^2.0.3",
     "topojson": "^1.6.27",
     "watchify": "^3.11.1"
