@@ -112,6 +112,10 @@ function formatProperties(collection, v) {
                 feature.properties.ct = getCentroid(feature);
             }
          }
+
+        // France (IS0_A3=FRA) is also acting weird using IS0_A3,
+        // but using ISO_A3_EH seems to work ok
+        // - https://github.com/nvkelso/natural-earth-vector/issues/284
     }
 }
 

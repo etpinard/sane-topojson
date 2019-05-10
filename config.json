@@ -103,7 +103,7 @@
             "type": "cultural",
             "src": "admin_0_countries",
             "name": "countries",
-            "ids": "ISO_A3",
+            "ids": "ISO_A3_EH",
             "scopeWith": "bounds"
         },
         {
