@@ -1,8 +1,6 @@
 var fs = require('fs');
-
 var topojson  = require('topojson');
 var gju = require('geojson-utils');
-
 var common = require('./common');
 
 fs.readFile(common.pathToConfig, 'utf8', main);
@@ -55,9 +53,7 @@ function main(err, configFile) {
         fs.writeFile(outPath, JSON.stringify(topology), function(err) {
             if(!err) barWrite.tick();
         });
-
     });
-
 }
 
 function formatProperties(collection, v) {

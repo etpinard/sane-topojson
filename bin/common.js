@@ -1,10 +1,10 @@
 var fs = require('fs');
 var path = require('path');
-
 var ProgressBar = require('progress');
 
 var common = module.exports = {};
 
+common.DEBUG = process.env.SANE_TOPOJSON_DEBUG;
 common.pathToConfig = path.join(__dirname, '../config.json');
 common.wgetDir = path.join(__dirname, '../build/');
 common.geojsonDir = path.join(__dirname, '../build/');
@@ -46,7 +46,6 @@ common.makeBar = function(str, components) {
 };
 
 // get list of topojsons to write
-// (to update an existing topojson, delete it first with `make reset`)
 common.getToposToWrite = function(config) {
     var toposToWrite = [];
 

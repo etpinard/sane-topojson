@@ -3,9 +3,6 @@ var exec = require('child_process').exec;
 var common = require('./common');
 var mapshaper = './node_modules/mapshaper/bin/mapshaper';
 
-// logs commands if true
-var DEBUG = process.env.SANE_TOPOJSON_DEBUG;
-
 fs.readFile(common.pathToConfig, 'utf8', main);
 
 function main(err, configFile) {
@@ -54,7 +51,7 @@ function main(err, configFile) {
             common.wgetDir + common.tn(r, s.name, specs.src, 'tmp.shp')
        ].join(' ');
 
-       if(DEBUG) console.log(cmd);
+       if(common.DEBUG) console.log(cmd + '\n');
        return cmd;
     }
 
@@ -130,7 +127,7 @@ function main(err, configFile) {
         }
         else cmd = getCmd('ogr2ogr', false);
 
-        if(DEBUG) console.log(cmd);
+        if(common.DEBUG) console.log(cmd + '\n');
         return cmd;
     }
 

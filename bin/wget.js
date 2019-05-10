@@ -37,6 +37,8 @@ function main(err, configFile) {
                 common.bn(r, v.src, 'zip')
             ].join('');
 
+            if(common.DEBUG) console.log('wget ' + url + '\n');
+
             wget({url: url, dest: dest}, function(err) {
                 if(err) throw err;
                 setTimeout(function() {
