@@ -1,4 +1,5 @@
 /* global d3:false */
+/* global describe:false, it:false, expect:false fail:false beforeEach:false, afterEach:false */
 
 /*
  * N.B. these test assert ./index.js which itself requires dist/*,

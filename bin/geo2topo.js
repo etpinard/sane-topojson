@@ -101,7 +101,7 @@ function formatProperties (collection, v) {
       return centroids[indexOfMax]
     } else if (geometry.type === 'Polygon') {
       return getOne(geometry)
-    } else return
+    }
   }
 
   for (var i = 0; i < N; i++) {

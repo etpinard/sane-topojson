@@ -153,7 +153,7 @@ var COUNTRY_LIST = {
 }
 
 var COUNTRIES_CNT = {}
-for (var k in COUNTRY_LIST) {
+for (let k in COUNTRY_LIST) {
   COUNTRIES_CNT[k] = COUNTRY_LIST[k].length
 }
 
@@ -177,7 +177,7 @@ var SUBUNITS_LIST = {
 }
 
 var SUBUNITS_CNT = {}
-for (var k in SUBUNITS_LIST) {
+for (let k in SUBUNITS_LIST) {
   SUBUNITS_CNT[k] = SUBUNITS_LIST[k].length
 }
 

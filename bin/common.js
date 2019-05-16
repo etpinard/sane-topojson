@@ -14,18 +14,18 @@ common.urlBase = 'https://www.naturalearthdata.com/http//www.naturalearthdata.co
 common.srcPrefix = 'ne_'
 
 // base file name
-common.bn = function bn (r, v_name, ext) {
-  return r + 'm_' + v_name + '.' + ext
+common.bn = function bn (r, vName, ext) {
+  return r + 'm_' + vName + '.' + ext
 }
 
 // temporary file name
-common.tn = function tn (r, s_name, v_name, ext) {
-  return r + 'm_' + s_name + '_' + v_name + '.' + ext
+common.tn = function tn (r, sName, vName, ext) {
+  return r + 'm_' + sName + '_' + vName + '.' + ext
 }
 
 // aggregated topojson
-common.out = function out (r, s_name) {
-  return s_name + '_' + r + 'm.json'
+common.out = function out (r, sName) {
+  return sName + '_' + r + 'm.json'
 }
 
 // make Progress bar
