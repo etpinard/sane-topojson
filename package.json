@@ -1,6 +1,6 @@
 {
   "name": "sane-topojson",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Ready-to-use multi-layer topojson files",
   "main": "index.js",
   "scripts": {
