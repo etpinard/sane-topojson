@@ -9,6 +9,7 @@
 var saneTopojson = require('../');
 var assets = require('./assets');
 var topojson = require('topojson');
+var diff = require('fast-array-diff').diff;
 
 describe('sane topojson general', () => {
     it('should have correct test environments', () => {
@@ -101,6 +102,24 @@ describe('sane topojson general', () => {
                         break;
                 }
             });
+        });
+    });
+
+    it('should have correct set of country IDs', () => {
+        Object.keys(saneTopojson).forEach((k) => {
+            var actual = saneTopojson[k].objects.countries.geometries.map(g => g.id).sort();
+            var d = diff(assets.COUNTRY_LIST[k], actual);
+            expect(d.removed).withContext('removed country for list| ' + k).toEqual([]);
+            expect(d.added).withContext('added country for list| ' + k).toEqual([]);
+        });
+    });
+
+    it('should have correct set of subunit IDs', () => {
+        Object.keys(saneTopojson).forEach((k) => {
+            var actual = saneTopojson[k].objects.subunits.geometries.map(g => g.id).sort();
+            var d = diff(assets.SUBUNITS_LIST[k], actual);
+            expect(d.removed).withContext('removed subunit for list| ' + k).toEqual([]);
+            expect(d.added).withContext('added subunit for list| ' + k).toEqual([]);
         });
     });
 });
