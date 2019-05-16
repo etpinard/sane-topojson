@@ -101,7 +101,7 @@ function formatProperties(collection, v) {
          if(v.ids) {
             id = feature.properties[v.ids];
 
-            if(id !== '-99') {
+            if(id && id !== '-99') {
                 feature.id = id;
                 feature.properties.ct = getCentroid(feature);
                 feature.properties.gu = feature.properties['gu_a3'];
@@ -115,7 +115,7 @@ function formatProperties(collection, v) {
         if(v.ids && v.ids.indexOf('ISO_A3') === 0) {
             id = feature.properties['SOV_A3'];
 
-            if(id !== '-99') {
+            if(id === 'NOR') {
                 feature.id = id;
                 feature.properties.ct = getCentroid(feature);
                 feature.properties.gu = feature.properties['gu_a3'];
