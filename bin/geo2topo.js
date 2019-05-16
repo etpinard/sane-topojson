@@ -1,172 +1,182 @@
-var fs = require('fs');
-var topojson  = require('topojson');
-var gju = require('geojson-utils');
-var common = require('./common');
+var fs = require('fs')
+var topojson = require('topojson')
+var gju = require('geojson-utils')
+var common = require('./common')
 
-fs.readFile(common.pathToConfig, 'utf8', main);
+fs.readFile(common.pathToConfig, 'utf8', main)
 
-function main(err, configFile) {
-    if(err) throw err;
+function main (err, configFile) {
+  if (err) throw err
 
-    var config = JSON.parse(configFile);
-    var toposToWrite = common.getToposToWrite(config);
+  var config = JSON.parse(configFile)
+  var toposToWrite = common.getToposToWrite(config)
 
-    var barWrite = common.makeBar(
-        'Writing into topojson: [:bar] :current/:total',
-        [toposToWrite]
-    );
+  var barWrite = common.makeBar(
+    'Writing into topojson: [:bar] :current/:total',
+    [toposToWrite]
+  )
 
-    function propertyTransform(feature) { return feature.properties; }
+  function propertyTransform (feature) { return feature.properties }
 
-    toposToWrite.forEach(function(topo) {
-        var r = topo.r,
-            s = topo.s;
+  toposToWrite.forEach(function (topo) {
+    var r = topo.r
 
-        var collections = {};
+    var s = topo.s
 
-        config.vectors.forEach(function(v) {
-            var path = common.geojsonDir + common.tn(r, s.name, v.name, 'geo.json'),
-                d = fs.readFileSync(path, 'utf8'),
-                collection = JSON.parse(d);
+    var collections = {}
 
-            if(collection.features) formatProperties(collection, v);
-            collections[v.name] = collection;
-        });
+    config.vectors.forEach(function (v) {
+      var path = common.geojsonDir + common.tn(r, s.name, v.name, 'geo.json')
 
-        // TODO experiment with simplification/quantization
-        var topology = topojson.topology(collections, {
-            'verbose': common.DEBUG,
-            'property-transform': propertyTransform
-         });
+      var d = fs.readFileSync(path, 'utf8')
 
-        pruneProperties(topology);
+      var collection = JSON.parse(d)
 
-        var outPath = common.topojsonDir + common.out(r, s.name);
+      if (collection.features) formatProperties(collection, v)
+      collections[v.name] = collection
+    })
 
-        fs.writeFile(outPath, JSON.stringify(topology), function(err) {
-            if(err) throw err;
-            barWrite.tick();
-        });
-    });
+    // TODO experiment with simplification/quantization
+    var topology = topojson.topology(collections, {
+      'verbose': common.DEBUG,
+      'property-transform': propertyTransform
+    })
+
+    pruneProperties(topology)
+
+    var outPath = common.topojsonDir + common.out(r, s.name)
+
+    fs.writeFile(outPath, JSON.stringify(topology), function (err) {
+      if (err) throw err
+      barWrite.tick()
+    })
+  })
 }
 
-function formatProperties(collection, v) {
-    var features = collection.features,
-        N = features.length,
-        feature,
-        id;
+function formatProperties (collection, v) {
+  var features = collection.features
 
-    function getCentroid(feature){
-        var geometry = feature.geometry;
+  var N = features.length
 
-        function getOne(polygon) {
-            var coords = gju.centroid(polygon).coordinates;
-            return [ +coords[0].toFixed(2), +coords[1].toFixed(2) ];
-        }
+  var feature
 
-        if(geometry.type === 'MultiPolygon') {
-            var coordinates = geometry.coordinates,
-                N = coordinates.length,
-                centroids = new Array(N),
-                areas = new Array(N),
-                polygon,
-                indexOfMax;
+  var id
 
-            // compute one centroid per polygon and
-            // pick the one associated with the
-            // largest area.
+  function getCentroid (feature) {
+    var geometry = feature.geometry
 
-            for(var i = 0; i < N; i++) {
-                polygon = {
-                    type: 'Polygon',
-                    coordinates: coordinates[i]
-                };
-                centroids[i] = getOne(polygon);
-                areas[i] = gju.area(polygon);
-            }
-
-            // 'min' works best, not sure why
-            indexOfMax = areas.indexOf(Math.min.apply(Math, areas));
-            return centroids[indexOfMax];
-        }
-        else if(geometry.type==='Polygon') {
-            return getOne(geometry);
-        }
-        else return;
+    function getOne (polygon) {
+      var coords = gju.centroid(polygon).coordinates
+      return [ +coords[0].toFixed(2), +coords[1].toFixed(2) ]
     }
 
-    for(var i = 0; i < N; i++) {
-        feature = features[i];
+    if (geometry.type === 'MultiPolygon') {
+      var coordinates = geometry.coordinates
 
-         if(v.ids) {
-            id = feature.properties[v.ids];
+      var N = coordinates.length
 
-            if(id && id !== '-99') {
-                feature.id = id;
-                feature.properties.ct = getCentroid(feature);
-                feature.properties.gu = feature.properties['gu_a3'];
-                continue;
-            }
-         }
+      var centroids = new Array(N)
 
-        // Unfortunately, we need this to include Norway (IS0_A3=NOR)
-        // from Natural Earth v4.1.0
-        // - https://github.com/nvkelso/natural-earth-vector/issues/252
-        if(v.ids && v.ids.indexOf('ISO_A3') === 0) {
-            id = feature.properties['SOV_A3'];
+      var areas = new Array(N)
 
-            if(id === 'NOR') {
-                feature.id = id;
-                feature.properties.ct = getCentroid(feature);
-                feature.properties.gu = feature.properties['gu_a3'];
-            }
+      var polygon
+
+      var indexOfMax
+
+      // compute one centroid per polygon and
+      // pick the one associated with the
+      // largest area.
+
+      for (var i = 0; i < N; i++) {
+        polygon = {
+          type: 'Polygon',
+          coordinates: coordinates[i]
         }
+        centroids[i] = getOne(polygon)
+        areas[i] = gju.area(polygon)
+      }
 
-        // France (IS0_A3=FRA) is also acting weird using IS0_A3,
-        // but using ISO_A3_EH seems to work ok
-        // - https://github.com/nvkelso/natural-earth-vector/issues/284
+      // 'min' works best, not sure why
+      indexOfMax = areas.indexOf(Math.min.apply(Math, areas))
+      return centroids[indexOfMax]
+    } else if (geometry.type === 'Polygon') {
+      return getOne(geometry)
+    } else return
+  }
+
+  for (var i = 0; i < N; i++) {
+    feature = features[i]
+
+    if (v.ids) {
+      id = feature.properties[v.ids]
+
+      if (id && id !== '-99') {
+        feature.id = id
+        feature.properties.ct = getCentroid(feature)
+        feature.properties.gu = feature.properties['gu_a3']
+        continue
+      }
     }
+
+    // Unfortunately, we need this to include Norway (IS0_A3=NOR)
+    // from Natural Earth v4.1.0
+    // - https://github.com/nvkelso/natural-earth-vector/issues/252
+    if (v.ids && v.ids.indexOf('ISO_A3') === 0) {
+      id = feature.properties['SOV_A3']
+
+      if (id === 'NOR') {
+        feature.id = id
+        feature.properties.ct = getCentroid(feature)
+        feature.properties.gu = feature.properties['gu_a3']
+      }
+    }
+
+    // France (IS0_A3=FRA) is also acting weird using IS0_A3,
+    // but using ISO_A3_EH seems to work ok
+    // - https://github.com/nvkelso/natural-earth-vector/issues/284
+  }
 }
 
-function pruneProperties(topology) {
-    // keep 'gu' (aka governing unit A3 code, which necessary to identify
-    // some subunits ids (e.g. 'WA' which can be Washington state and Western
-    // Australia)
-    var propsToKeep = ['ct', 'gu'];
+function pruneProperties (topology) {
+  // keep 'gu' (aka governing unit A3 code, which necessary to identify
+  // some subunits ids (e.g. 'WA' which can be Washington state and Western
+  // Australia)
+  var propsToKeep = ['ct', 'gu']
 
-    var objects = topology.objects;
+  var objects = topology.objects
 
-    Object.keys(objects).forEach(function(objectName) {
-        var obj = objects[objectName];
+  Object.keys(objects).forEach(function (objectName) {
+    var obj = objects[objectName]
 
-        delete obj.crs;
-        delete obj.name;
+    delete obj.crs
+    delete obj.name
 
-        var geometries2 = [];
+    var geometries2 = []
 
-        obj.geometries.forEach(function(geometry) {
-            var properties = geometry.properties,
-                newProperties = {};
+    obj.geometries.forEach(function (geometry) {
+      var properties = geometry.properties
 
-            if(properties === undefined) return;
+      var newProperties = {}
 
-            propsToKeep.forEach(function(prop) {
-                if(properties[prop] !== undefined) {
-                    newProperties[prop] = properties[prop];
-                }
-            });
+      if (properties === undefined) return
 
-            if(Object.keys(newProperties).length) {
-                geometry.properties = newProperties;
-            } else {
-                delete geometry.properties;
-            }
+      propsToKeep.forEach(function (prop) {
+        if (properties[prop] !== undefined) {
+          newProperties[prop] = properties[prop]
+        }
+      })
 
-            if(geometry.type !== null) {
-                geometries2.push(geometry);
-            }
-        });
+      if (Object.keys(newProperties).length) {
+        geometry.properties = newProperties
+      } else {
+        delete geometry.properties
+      }
 
-        obj.geometries = geometries2;
-    });
+      if (geometry.type !== null) {
+        geometries2.push(geometry)
+      }
+    })
+
+    obj.geometries = geometries2
+  })
 }
