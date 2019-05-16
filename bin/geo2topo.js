@@ -135,7 +135,14 @@ function pruneProperties(topology) {
     var objects = topology.objects;
 
     Object.keys(objects).forEach(function(objectName) {
-        objects[objectName].geometries.forEach(function(geometry) {
+        var obj = objects[objectName];
+
+        delete obj.crs;
+        delete obj.name;
+
+        var geometries2 = [];
+
+        obj.geometries.forEach(function(geometry) {
             var properties = geometry.properties,
                 newProperties = {};
 
@@ -149,10 +156,15 @@ function pruneProperties(topology) {
 
             if(Object.keys(newProperties).length) {
                 geometry.properties = newProperties;
-            }
-            else {
+            } else {
                 delete geometry.properties;
             }
+
+            if(geometry.type !== null) {
+                geometries2.push(geometry);
+            }
         });
+
+        obj.geometries = geometries2;
     });
 }
