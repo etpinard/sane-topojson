@@ -11,7 +11,7 @@ var GEOMETRY_COUNT = {
         'land': 127,
         'ocean': 2,
         'lakes': 25,
-        'rivers': 14,
+        'rivers': 13,
         'countries': 177,
         'subunits': 51
     },
@@ -19,8 +19,8 @@ var GEOMETRY_COUNT = {
         'coastlines': 1428,
         'land': 1420,
         'ocean': 1,
-        'lakes': 398,
-        'rivers': 460,
+        'lakes': 275,
+        'rivers': 461,
         'countries': 241,
         'subunits': 100
     },
@@ -37,8 +37,8 @@ var GEOMETRY_COUNT = {
         'coastlines': 147,
         'land': 36,
         'ocean': 1,
-        'lakes': 22,
-        'rivers': 126,
+        'lakes': 20,
+        'rivers': 127,
         'countries': 54,
         'subunits': 0
     },
@@ -55,7 +55,7 @@ var GEOMETRY_COUNT = {
         'coastlines': 729,
         'land': 331,
         'ocean': 1,
-        'lakes': 72,
+        'lakes': 58,
         'rivers': 255,
         'countries': 53,
         'subunits': 0
@@ -73,8 +73,8 @@ var GEOMETRY_COUNT = {
         'coastlines': 263,
         'land': 210,
         'ocean': 1,
-        'lakes': 67,
-        'rivers': 137,
+        'lakes': 45,
+        'rivers': 138,
         'countries': 50,
         'subunits': 0
     },
@@ -83,7 +83,7 @@ var GEOMETRY_COUNT = {
         'land': 47,
         'ocean': 1,
         'lakes': 14,
-        'rivers': 4,
+        'rivers': 3,
         'countries': 18,
         'subunits': 51
     },
@@ -91,7 +91,7 @@ var GEOMETRY_COUNT = {
         'coastlines': 375,
         'land': 346,
         'ocean': 1,
-        'lakes': 191,
+        'lakes': 123,
         'rivers': 129,
         'countries': 38,
         'subunits': 64
@@ -109,7 +109,7 @@ var GEOMETRY_COUNT = {
         'coastlines': 174,
         'land': 67,
         'ocean': 1,
-        'lakes': 16,
+        'lakes': 8,
         'rivers': 53,
         'countries': 13,
         'subunits': 27
@@ -127,7 +127,7 @@ var GEOMETRY_COUNT = {
         'coastlines': 372,
         'land': 120,
         'ocean': 1,
-        'lakes': 77,
+        'lakes': 55,
         'rivers': 66,
         'countries': 1,
         'subunits': 58
