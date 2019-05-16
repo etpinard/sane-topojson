@@ -10,7 +10,9 @@
     "geo2topo": "node ./bin/geo2topo.js",
     "stats": "node ./bin/stats.js",
     "start": "npm run clean && npm run wget && npm run shp2geo && npm run geo2topo && npm run stats",
-    "test": "karma start test/karma.conf.js"
+    "test:lint": "standard | snazzy",
+    "test:jasmine": "karma start test/karma.conf.js",
+    "test": "npm run test:lint && npm run test:jasmine"
   },
   "repository": {
     "type": "git",
@@ -41,6 +43,8 @@
     "node-wget": "^0.4.3",
     "prettysize": "^2.0.0",
     "progress": "^2.0.3",
+    "snazzy": "^8.0.0",
+    "standard": "^12.0.1",
     "topojson": "^1.6.27",
     "watchify": "^3.11.1"
   },
