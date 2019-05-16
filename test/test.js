@@ -63,6 +63,7 @@ describe('sane topojson general', () => {
                     case 'rivers':
                         o.geometries.forEach(function(g, i) {
                             var msg = [k, l, i];
+
                             expect(Object.keys(g).length).toBe(2, 'just two fields| ' + msg);
                             expect(Array.isArray(g.arcs)).toBe(true, '*arcs* is an array| ' + msg);
                             expect(typeof g.type === 'string').toBe(true, '*type* is a string |' + msg);
@@ -70,6 +71,8 @@ describe('sane topojson general', () => {
                         break;
                     case 'countries':
                     case 'subunits':
+                        var expNumOfProps = {countries: 1, subunits: 2}[l];
+
                         o.geometries.forEach(function(g, i) {
                             var msg = [k, l, i];
                             var p = g.properties;
@@ -77,8 +80,14 @@ describe('sane topojson general', () => {
                             if(p) {
                                 expect(Object.keys(g).length).toBe(4, 'four fields| ' + msg);
                                 expect(typeof g.id === 'string').toBe(true, '*id* is a string| ' + msg);
-                                expect(Object.keys(p).length).toBe(1, '1 properties field| ' + msg);
+
+                                var pLen = Object.keys(p).length;
+                                expect(pLen).toBe(expNumOfProps, '# properties field| ' + msg);
                                 expect(Array.isArray(p.ct)).toBe(true, '*properties.ct* is an array| '+ msg);
+                                if(pLen > 1) {
+                                    expect(typeof p.gu === 'string').toBe(true, '*properties.gu* is a string| '+ msg);
+                                }
+
                                 list.push(g.id);
                             } else {
                                 expect(Object.keys(g).length).toBe(2, 'just two fields| ' + msg);

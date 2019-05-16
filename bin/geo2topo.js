@@ -104,6 +104,7 @@ function formatProperties(collection, v) {
             if(id !== '-99') {
                 feature.id = id;
                 feature.properties.ct = getCentroid(feature);
+                feature.properties.gu = feature.properties['gu_a3'];
                 continue;
             }
          }
@@ -117,6 +118,7 @@ function formatProperties(collection, v) {
             if(id !== '-99') {
                 feature.id = id;
                 feature.properties.ct = getCentroid(feature);
+                feature.properties.gu = feature.properties['gu_a3'];
             }
         }
 
@@ -127,10 +129,10 @@ function formatProperties(collection, v) {
 }
 
 function pruneProperties(topology) {
-    // keep gu_a3 (aka governing unit A3 code, which necessary to identify
+    // keep 'gu' (aka governing unit A3 code, which necessary to identify
     // some subunits ids (e.g. 'WA' which can be Washington state and Western
     // Australia)
-    var propsToKeep = ['ct', 'gu_a3'];
+    var propsToKeep = ['ct', 'gu'];
 
     var objects = topology.objects;
 
