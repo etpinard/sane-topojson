@@ -8,10 +8,10 @@
 
 Ready-to-use multi-layer topojson files.
 
+**-->** Go to [Natural Earth CHANGELOG](https://github.com/nvkelso/natural-earth-vector/blob/master/CHANGELOG)
+
 This project encompasses the three step required to turn
 [Natural Earth Data](http://www.naturalearthdata.com/) into topojson files.
-
-Go to [Natural Earth CHANGELOG](https://github.com/nvkelso/natural-earth-vector/blob/master/CHANGELOG)
 
 These are:
 
@@ -20,19 +20,15 @@ These are:
 - `npm run geo2topo` add properties and convert the geojson files into topojson
   files
 
-### Configuration
+### Usage
 
-In `./config.json`:
+```
+npm install sane-topojson
+```
 
-- `resolutions`: array of resolutions to output
-- `scopes`: array of scopes to output
+and import/require the `index.js` or the one of the `dist/` files.
 
-sane-topojson will output `resolution.length` times `scopes.length` topojson
-files.
-
-- `vectors`: array of layers making up each topojson file
-
-### Output
+### Layers
 
 A topojson with the `objects` field:
 
@@ -68,7 +64,7 @@ A topojson with the `objects` field:
     subunits: {
         type: '',
         geometries: [
-            {type: '', id: '', arcs: [], properties: {ct: [lon, lat]}},
+            {type: '', id: '', arcs: [], properties: {ct: [lon, lat], gu: 'ISO-3'}},
             // ...
         ]
     }
@@ -78,19 +74,28 @@ A topojson with the `objects` field:
 where `id` is the ISO-3 code for the `countries` layer and two-letter postal
 code for the `subunits` layer. In `properties`, `ct` is the longitude and
 latitude coordinates (in degrees East and degrees North respectively) of the
-centroid of the geometry's largest polygon in area.
+centroid of the geometry's largest polygon in area and `gu` stands for the
+"governing unit" for `subunits` features (i.e. the country where the subunit
+is).
 
-### Install
+### Development dependencies
 
 - Install gdal (info:
   [ubuntu](http://www.sarasafavi.com/installing-gdalogr-on-ubuntu.html) |
   [mac](https://trac.osgeo.org/gdal/wiki/BuildingOnMac))
+- `npm i`
 
-- Install node.js dependencies
+### Configuration
 
-```
-npm install sane-topojson
-```
+In `./config.json`:
+
+- `resolutions`: array of resolutions to output
+- `scopes`: array of scopes to output
+
+sane-topojson will output `resolution.length` times `scopes.length` topojson
+files.
+
+- `vectors`: array of layers making up each topojson file
 
 ## Credits
 
