@@ -1,57 +1,53 @@
-var fs = require('fs');
-var exec = require('child_process').exec;
+var fs = require('fs')
+var exec = require('child_process').exec
+var wget = require('node-wget')
+var common = require('./common')
 
-var wget = require('wget');
+fs.readFile(common.pathToConfig, 'utf8', main)
 
-var common = require('./common');
+function main (err, configFile) {
+  if (err) throw err
 
-fs.readFile(common.pathToConfig, 'utf8', main);
+  var config = JSON.parse(configFile)
 
-function main(err, configFile) {
-    if(err) throw err;
+  var bar = common.makeBar(
+    'Downloading shapefiles: [:bar] :current/:total',
+    [config.resolutions, config.vectors]
+  )
 
-    var config = JSON.parse(configFile);
+  function unzip (r, v) {
+    return [
+      'unzip -o',
+      common.wgetDir + common.srcPrefix + common.bn(r, v.src, 'zip'),
+      '-d', common.wgetDir
+    ].join(' ')
+  }
 
-    var bar = common.makeBar(
-        'Downloading shapefiles: [:bar] :current/:total',
-        [config.resolutions, config.vectors]
-    );
+  config.resolutions.forEach(function (r) {
+    config.vectors.forEach(function (v) {
+      var url = [
+        common.urlBase,
+        r, 'm/', v.type + '/',
+        common.srcPrefix,
+        common.bn(r, v.src, 'zip')
+      ].join('')
+      var dest = [
+        common.wgetDir,
+        common.srcPrefix,
+        common.bn(r, v.src, 'zip')
+      ].join('')
 
-    function unzip(r, v) {
-        return [
-            'unzip -o',
-            common.wgetDir + common.srcPrefix + common.bn(r, v.src, 'zip'),
-            '-d', common.wgetDir
-        ].join(' ');
-    }
+      if (common.DEBUG) console.log('wget ' + url + '\n')
 
-    config.resolutions.forEach(function(r) {
-        config.vectors.forEach(function(v) {
-
-            var url = [
-                    common.urlBase,
-                    r, 'm/', v.type + '/',
-                    common.srcPrefix,
-                    common.bn(r, v.src, 'zip')
-                ].join(''),
-                out = [
-                    common.wgetDir,
-                    common.srcPrefix,
-                    common.bn(r, v.src, 'zip')
-                ].join('');
-
-            var download = wget.download(url, out, {});
-
-            download.on('error', function(err) {
-                console.log(err);
-            });
-
-            download.on('end', function() {
-                exec(unzip(r, v), function() {
-                    bar.tick();
-                    if(bar.complete) process.exit();
-                });
-            });
-        });
-    });
+      wget({ url: url, dest: dest }, function (err) {
+        if (err) throw err
+        setTimeout(function () {
+          exec(unzip(r, v), function (err) {
+            if (err) throw err
+            bar.tick()
+          })
+        }, 1000)
+      })
+    })
+  })
 }

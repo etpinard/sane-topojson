@@ -1,15 +1,18 @@
 {
   "name": "sane-topojson",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Ready-to-use multi-layer topojson files",
   "main": "index.js",
   "scripts": {
-    "clean": "cd build && ls | grep -v README.md | xargs rm",
+    "clean": "cd build && ls | grep -v README.md | xargs rm || true",
     "wget": "node ./bin/wget.js",
     "shp2geo": "node ./bin/shp2geo.js",
     "geo2topo": "node ./bin/geo2topo.js",
-    "start": "npm clean && npm run wget && npm run shp2geo && npm run geo2topo",
-    "test": "karma start test/karma.conf.js"
+    "stats": "node ./bin/stats.js",
+    "start": "npm run clean && npm run wget && npm run shp2geo && npm run geo2topo && npm run stats",
+    "test:lint": "standard | snazzy",
+    "test:jasmine": "karma start test/karma.conf.js",
+    "test": "npm run test:lint && npm run test:jasmine"
   },
   "repository": {
     "type": "git",
@@ -28,16 +31,22 @@
   },
   "homepage": "https://github.com/etpinard/sane-topojson#readme",
   "devDependencies": {
+    "fast-array-diff": "^0.2.0",
     "geojson-utils": "^1.1.0",
-    "jasmine-core": "^2.5.2",
-    "karma": "^1.3.0",
-    "karma-browserify": "^5.1.0",
+    "gzip-size": "^5.1.0",
+    "jasmine-core": "^3.4.0",
+    "karma": "^4.1.0",
+    "karma-browserify": "^6.0.0",
     "karma-firefox-launcher": "^1.0.0",
-    "karma-jasmine": "^1.0.2",
-    "mapshaper": "^0.3.11",
-    "progress": "^1.1.8",
-    "topojson": "^1.6.19",
-    "watchify": "^3.7.0",
-    "wget": "0.0.1"
-  }
+    "karma-jasmine": "^2.0.1",
+    "mapshaper": "^0.4.113",
+    "node-wget": "^0.4.3",
+    "prettysize": "^2.0.0",
+    "progress": "^2.0.3",
+    "snazzy": "^8.0.0",
+    "standard": "^12.0.1",
+    "topojson": "^1.6.27",
+    "watchify": "^3.11.1"
+  },
+  "dependencies": {}
 }

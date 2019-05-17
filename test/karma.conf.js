@@ -1,29 +1,29 @@
-var isCI = process.env.CI;
+var isCI = process.env.CI
 
-module.exports = function(config) {
-    config.set({
-        basePath: '.',
-    
-        files: [
-            'https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js',
-            'test.js'
-        ],
+module.exports = function (config) {
+  config.set({
+    basePath: '.',
 
-        frameworks: ['jasmine', 'browserify'],
+    files: [
+      'https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js',
+      'test.js'
+    ],
 
-        preprocessors: { 'test.js': ['browserify'] },
+    frameworks: ['jasmine', 'browserify'],
 
-        browsers: ['Firefox'],
+    preprocessors: { 'test.js': ['browserify'] },
 
-        autoWatch: !isCI,
+    browsers: ['Firefox'],
 
-        singleRun: isCI,
+    autoWatch: !isCI,
 
-        browserNoActivityTimeout: 100000,
+    singleRun: isCI,
 
-        browserify: {
-            watch: true,
-            debug: true
-        }
-    });
-};
+    browserNoActivityTimeout: 100000,
+
+    browserify: {
+      watch: true,
+      debug: true
+    }
+  })
+}
