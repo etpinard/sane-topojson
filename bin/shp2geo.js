@@ -41,6 +41,7 @@ function main (err, configFile) {
       'encoding=utf8',
       '-filter',
       filter,
+      '-dissolve',
       '-o',
       common.wgetDir + common.tn(r, s.name, specs.src, 'tmp.shp'),
       'force',
