@@ -99,7 +99,7 @@
             "src": "rivers_lake_centerlines",
             "name": "rivers",
             "ids": false,
-            "scopeWith": "bounds"
+            "scopeWith": "src"
         },
         {
             "type": "cultural",

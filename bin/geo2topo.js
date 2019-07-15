@@ -38,7 +38,7 @@ function main (err, configFile) {
 
     // TODO experiment with simplification/quantization
     var topology = topojson.topology(collections, {
-      'verbose': common.DEBUG,
+      verbose: common.DEBUG,
       'property-transform': propertyTransform
     })
 
@@ -67,7 +67,7 @@ function formatProperties (collection, v) {
 
     function getOne (polygon) {
       var coords = gju.centroid(polygon).coordinates
-      return [ +coords[0].toFixed(2), +coords[1].toFixed(2) ]
+      return [+coords[0].toFixed(2), +coords[1].toFixed(2)]
     }
 
     if (geometry.type === 'MultiPolygon') {

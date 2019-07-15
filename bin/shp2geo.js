@@ -41,6 +41,7 @@ function main (err, configFile) {
       'encoding=utf8',
       '-filter',
       filter,
+      '-dissolve',
       '-o',
       common.wgetDir + common.tn(r, s.name, specs.src, 'tmp.shp'),
       'force',
@@ -136,11 +137,11 @@ function main (err, configFile) {
 
   toposToWrite.forEach(function (topo) {
     var r = topo.r
-
     var s = topo.s
 
-    if (s.specs === false) vectorLoop(r, s, false)
-    else {
+    if (s.specs === false) {
+      vectorLoop(r, s, false)
+    } else {
       exec(scopeBaseShapefile(r, s), function (err) {
         if (err) throw err
         setTimeout(function () {
