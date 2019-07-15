@@ -39,7 +39,7 @@
     "karma-browserify": "^6.0.0",
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^2.0.1",
-    "mapshaper": "^0.4.113",
+    "mapshaper": "^0.4.122",
     "node-wget": "^0.4.3",
     "prettysize": "^2.0.0",
     "progress": "^2.0.3",
