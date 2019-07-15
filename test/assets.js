@@ -29,7 +29,7 @@ var GEOMETRY_COUNT = {
     'land': 2,
     'ocean': 2,
     'lakes': 4,
-    'rivers': 3,
+    'rivers': 2,
     'countries': 51,
     'subunits': 0
   },
@@ -38,7 +38,7 @@ var GEOMETRY_COUNT = {
     'land': 36,
     'ocean': 1,
     'lakes': 20,
-    'rivers': 127,
+    'rivers': 77,
     'countries': 54,
     'subunits': 0
   },
@@ -47,7 +47,7 @@ var GEOMETRY_COUNT = {
     'land': 28,
     'ocean': 2,
     'lakes': 2,
-    'rivers': 9,
+    'rivers': 5,
     'countries': 47,
     'subunits': 0
   },
@@ -56,7 +56,7 @@ var GEOMETRY_COUNT = {
     'land': 331,
     'ocean': 1,
     'lakes': 58,
-    'rivers': 255,
+    'rivers': 97,
     'countries': 53,
     'subunits': 0
   },
@@ -65,7 +65,7 @@ var GEOMETRY_COUNT = {
     'land': 14,
     'ocean': 2,
     'lakes': 3,
-    'rivers': 3,
+    'rivers': 1,
     'countries': 39,
     'subunits': 0
   },
@@ -74,7 +74,7 @@ var GEOMETRY_COUNT = {
     'land': 210,
     'ocean': 1,
     'lakes': 45,
-    'rivers': 138,
+    'rivers': 70,
     'countries': 50,
     'subunits': 0
   },
@@ -83,7 +83,7 @@ var GEOMETRY_COUNT = {
     'land': 47,
     'ocean': 1,
     'lakes': 14,
-    'rivers': 3,
+    'rivers': 2,
     'countries': 18,
     'subunits': 51
   },
@@ -92,7 +92,7 @@ var GEOMETRY_COUNT = {
     'land': 346,
     'ocean': 1,
     'lakes': 123,
-    'rivers': 129,
+    'rivers': 123,
     'countries': 38,
     'subunits': 64
   },
@@ -110,7 +110,7 @@ var GEOMETRY_COUNT = {
     'land': 67,
     'ocean': 1,
     'lakes': 8,
-    'rivers': 53,
+    'rivers': 45,
     'countries': 13,
     'subunits': 27
   },
