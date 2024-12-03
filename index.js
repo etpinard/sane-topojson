@@ -18,3 +18,8 @@ exports['south-america_50m'] = require('./dist/south-america_50m.json')
 
 exports['usa_110m'] = require('./dist/usa_110m.json')
 exports['usa_50m'] = require('./dist/usa_50m.json')
+
+var UN_world = require('./dist/un.json')
+
+exports['un_110m'] = UN_world
+exports['un_50m'] = UN_world
